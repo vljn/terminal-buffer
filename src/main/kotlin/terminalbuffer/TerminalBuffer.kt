@@ -48,13 +48,15 @@ class TerminalBuffer(
     }
 
     fun writeText(text: String) {
+        val stylesSnapshot = EnumSet.copyOf(activeStyles)
+        val currentAttributes = Attributes(activeForeground, activeBackground, stylesSnapshot)
         for (char in text) {
             val absRow = getAbsoluteRow(cursor.row)
             val line = allLines[absRow]
 
             line[cursor.column] = Cell(
                 character = char,
-                Attributes(activeForeground, activeBackground, EnumSet.copyOf(activeStyles))
+                currentAttributes
             )
 
             if (cursor.column < width - 1) {
