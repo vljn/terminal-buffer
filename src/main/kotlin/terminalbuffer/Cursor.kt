@@ -32,4 +32,8 @@ class Cursor(val maxWidth: Int, val maxHeight: Int) {
         this.column = column
         this.row = row
     }
+
+    override fun toString(): String {
+        return "Cursor(row=$row, column=$column)"
+    }
 }
