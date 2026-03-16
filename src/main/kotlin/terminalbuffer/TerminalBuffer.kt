@@ -47,7 +47,7 @@ class TerminalBuffer(
         cursor.moveColumnBy(column)
     }
 
-    fun advanceCursor() {
+    private fun advanceCursor() {
         if (cursor.column < width - 1) {
             cursor.nextColumn()
         } else {
