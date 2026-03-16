@@ -71,4 +71,14 @@ class TerminalBuffer(
         }
     }
 
+
+    fun fillLine(char: Char) {
+        val row = getAbsoluteRow(cursor.row)
+        val line = allLines[row]
+        val styles = EnumSet.copyOf(activeStyles)
+        val attributes = Attributes(activeForeground, activeBackground, styles)
+        for (i in 0..<width) {
+            line[i] = Cell(char, attributes)
+        }
+    }
 }
