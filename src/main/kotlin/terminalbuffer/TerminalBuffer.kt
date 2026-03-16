@@ -64,6 +64,19 @@ class TerminalBuffer(
         val stylesSnapshot = EnumSet.copyOf(activeStyles)
         val currentAttributes = Attributes(activeForeground, activeBackground, stylesSnapshot)
         for (char in text) {
+            if(char == '\n') {
+                if(cursor.row < height - 1) {
+                    cursor.row++
+                } else {
+                    insertBottom()
+                }
+                cursor.column = 0
+                continue
+            }
+            if (char == '\r'){
+                cursor.column = 0
+                continue
+            }
             val absRow = getAbsoluteRow(cursor.row)
             val line = allLines[absRow]
 
@@ -151,7 +164,7 @@ class TerminalBuffer(
 
     fun getLine(index: Int): String {
         if (index < 0 || index >= allLines.size) {
-            throw IndexOutOfBoundsException("Line index must be between 0 and ${allLines.size}")
+            throw IndexOutOfBoundsException("Line index must be between 0 and ${allLines.size - 1}")
         }
 
         return allLines[index].toString()
