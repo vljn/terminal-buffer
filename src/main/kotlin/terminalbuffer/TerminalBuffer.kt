@@ -128,23 +128,23 @@ class TerminalBuffer(
         return allLines[index].toString()
     }
 
-    private fun validateIndices(absoluteRow: Int, absoluteColumn: Int) {
+    private fun validateIndices(absoluteRow: Int, column: Int) {
         if (absoluteRow !in 0..<allLines.size) {
             throw IndexOutOfBoundsException("Row $absoluteRow is out of bounds (max: ${allLines.size - 1})")
         }
-        if (absoluteColumn !in 0..<width) {
-            throw IndexOutOfBoundsException("Column $absoluteColumn is out of bounds (max: ${width - 1})")
+        if (column !in 0..<width) {
+            throw IndexOutOfBoundsException("Column $column is out of bounds (max: ${width - 1})")
         }
     }
 
-    fun getCharacterAt(absoluteRow: Int, absoluteColumn: Int): Char {
-        validateIndices(absoluteRow, absoluteColumn)
-        return allLines[absoluteRow][absoluteColumn].character
+    fun getCharacterAt(absoluteRow: Int, column: Int): Char {
+        validateIndices(absoluteRow, column)
+        return allLines[absoluteRow][column].character
     }
 
-    fun getAttributesAt(absoluteRow: Int, absoluteColumn: Int): Attributes {
-        validateIndices(absoluteRow, absoluteColumn)
+    fun getAttributesAt(absoluteRow: Int, column: Int): Attributes {
+        validateIndices(absoluteRow, column)
 
-        return allLines[absoluteRow][absoluteColumn].attributes
+        return allLines[absoluteRow][column].attributes
     }
 }
