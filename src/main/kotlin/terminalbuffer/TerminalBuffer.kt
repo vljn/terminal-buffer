@@ -72,6 +72,19 @@ class TerminalBuffer(
     }
 
 
+    fun clearScreen() {
+        for (i in 0 until height) {
+            allLines[getAbsoluteRow(i)].clear()
+        }
+        cursor.moveTo(0, 0)
+    }
+
+    fun clearAll() {
+        allLines.clear()
+        repeat(height) { allLines.add(Line(width)) }
+        cursor.moveTo(0, 0)
+    }
+
     fun fillLine(char: Char) {
         val row = getAbsoluteRow(cursor.row)
         val line = allLines[row]
