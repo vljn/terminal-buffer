@@ -47,6 +47,19 @@ class TerminalBuffer(
         cursor.moveColumnBy(column)
     }
 
+    fun advanceCursor() {
+        if (cursor.column < width - 1) {
+            cursor.nextColumn()
+        } else {
+            cursor.column = 0
+            if (cursor.row < height - 1) {
+                cursor.row++
+            } else {
+                insertBottom()
+            }
+        }
+    }
+
     fun writeText(text: String) {
         val stylesSnapshot = EnumSet.copyOf(activeStyles)
         val currentAttributes = Attributes(activeForeground, activeBackground, stylesSnapshot)
@@ -59,17 +72,7 @@ class TerminalBuffer(
                 currentAttributes
             )
 
-            if (cursor.column < width - 1) {
-                cursor.nextColumn()
-            } else {
-                if (cursor.row < height - 1) {
-                    cursor.row++
-                    cursor.column = 0
-                } else {
-                    insertBottom()
-                    cursor.column = 0
-                }
-            }
+            advanceCursor()
         }
     }
 
