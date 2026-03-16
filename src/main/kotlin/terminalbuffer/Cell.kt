@@ -28,7 +28,7 @@ enum class Style {
     UNDERLINE,
 }
 
-data class Cell (var character: Char,
-                 var foregroundColor: Color,
+data class Cell (var character: Char = ' ',
+                 var foregroundColor: Color = Color.DEFAULT,
                  var backgroundColor: Color = Color.DEFAULT,
                  var style: EnumSet<Style> = EnumSet.noneOf(Style::class.java)) { }
