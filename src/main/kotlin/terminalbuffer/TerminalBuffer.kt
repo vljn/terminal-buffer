@@ -46,4 +46,29 @@ class TerminalBuffer(
         cursor.moveRowBy(row)
         cursor.moveColumnBy(column)
     }
+
+    fun writeText(text: String) {
+        for (char in text) {
+            val absRow = getAbsoluteRow(cursor.row)
+            val line = allLines[absRow]
+
+            line[cursor.column] = Cell(
+                character = char,
+                Attributes(activeForeground, activeBackground, EnumSet.copyOf(activeStyles))
+            )
+
+            if (cursor.column < width - 1) {
+                cursor.nextColumn()
+            } else {
+                if (cursor.row < height - 1) {
+                    cursor.row++
+                    cursor.column = 0
+                } else {
+                    insertBottom()
+                    cursor.column = 0
+                }
+            }
+        }
+    }
+
 }
