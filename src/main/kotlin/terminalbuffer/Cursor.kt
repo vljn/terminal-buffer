@@ -28,7 +28,7 @@ class Cursor(val maxWidth: Int, val maxHeight: Int) {
     fun nextColumn() = moveColumnBy(1)
     fun nextRow() = moveRowBy(1)
 
-    fun moveTo(column: Int, row: Int) {
+    fun moveTo(row: Int, column: Int) {
         this.column = column
         this.row = row
     }
