@@ -28,10 +28,14 @@ enum class Style {
     UNDERLINE,
 }
 
-data class Cell (var character: Char = ' ',
-                 var foregroundColor: Color = Color.DEFAULT,
-                 var backgroundColor: Color = Color.DEFAULT,
-                 var style: EnumSet<Style> = EnumSet.noneOf(Style::class.java)) {
+data class Attributes(var foregroundColor: Color = Color.DEFAULT,
+                      var backgroundColor: Color = Color.DEFAULT,
+                      var style: EnumSet<Style> = EnumSet.noneOf(Style::class.java)) {}
+
+data class Cell (
+    var character: Char = ' ',
+    var attributes: Attributes = Attributes()
+) {
     override fun toString(): String {
         return character.toString()
     }
