@@ -71,6 +71,12 @@ class TerminalBuffer(
         }
     }
 
+    fun insertBottom() {
+        allLines.add(Line(width))
+        if (allLines.size > maxScrollback + height) {
+            allLines.removeFirst()
+        }
+    }
 
     fun clearScreen() {
         for (i in 0 until height) {
