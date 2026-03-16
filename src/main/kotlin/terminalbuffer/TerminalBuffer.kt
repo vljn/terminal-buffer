@@ -76,6 +76,35 @@ class TerminalBuffer(
         }
     }
 
+    fun insertText(text: String) {
+        val stylesSnapshot = EnumSet.copyOf(activeStyles)
+        val currentAttributes = Attributes(activeForeground, activeBackground, stylesSnapshot)
+        var remainingText = text
+
+        while (remainingText.isNotEmpty()) {
+            val absRow = getAbsoluteRow(cursor.row)
+            val line = allLines[absRow]
+
+            val spaceInLine = width - cursor.column
+            val toInsert = if (remainingText.length > spaceInLine) spaceInLine else remainingText.length
+
+            if (cursor.column + toInsert < width) {
+                for (i in (width - 1) downTo (cursor.column + toInsert)) {
+                    line[i] = line[i - toInsert]
+                }
+            }
+
+            val startCol = cursor.column
+            for (i in 0..<toInsert) {
+                line[startCol + i] = Cell(remainingText[i], currentAttributes)
+            }
+
+            repeat(toInsert) { advanceCursor() }
+
+            remainingText = remainingText.substring(toInsert)
+        }
+    }
+
     fun insertBottom() {
         allLines.add(Line(width))
         if (allLines.size > maxScrollback + height) {
