@@ -100,4 +100,27 @@ class TerminalBuffer(
             line[i] = Cell(char, attributes)
         }
     }
+
+    fun getScreenAsString(): String {
+        val sb = StringBuilder()
+        for (i in 0 until height) {
+            val line = allLines[getAbsoluteRow(i)]
+            sb.append(line.toString()).append("\n")
+        }
+        sb.deleteCharAt(sb.length - 1)
+        return sb.toString()
+    }
+
+    fun getFullContentAsString(): String {
+        return allLines.joinToString("\n") { it.toString() }
+    }
+
+    fun getLine(index: Int): String {
+        if (index < 0 || index >= allLines.size) {
+            throw IndexOutOfBoundsException("Line index must be between 0 and ${allLines.size}")
+        }
+
+        return allLines[index].toString()
+    }
+
 }
