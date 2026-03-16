@@ -16,4 +16,8 @@ class Line(width: Int) {
     operator fun set(index: Int, cell: Cell) {
         cells[index] = cell
     }
+
+    override fun toString(): String {
+        return cells.joinToString("")
+    }
 }

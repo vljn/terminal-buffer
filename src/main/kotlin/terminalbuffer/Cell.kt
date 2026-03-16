@@ -31,4 +31,8 @@ enum class Style {
 data class Cell (var character: Char = ' ',
                  var foregroundColor: Color = Color.DEFAULT,
                  var backgroundColor: Color = Color.DEFAULT,
-                 var style: EnumSet<Style> = EnumSet.noneOf(Style::class.java)) { }
+                 var style: EnumSet<Style> = EnumSet.noneOf(Style::class.java)) {
+    override fun toString(): String {
+        return character.toString()
+    }
+}
